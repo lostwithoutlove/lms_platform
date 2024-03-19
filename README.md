@@ -42,3 +42,4 @@ npx shadcn-ui@latest add button
 npx shadcn-ui@latest add button --overwrite
 npx shadcn-ui@latest add breadcrumb
 npm install @clerk/nextjs
+npx shadcn-ui@latest add sheet

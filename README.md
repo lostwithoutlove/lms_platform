@@ -43,3 +43,7 @@ npx shadcn-ui@latest add button --overwrite
 npx shadcn-ui@latest add breadcrumb
 npm install @clerk/nextjs
 npx shadcn-ui@latest add sheet
+npx shadcn-ui@latest add form
+npx shadcn-ui@latest add input
+npm i axios
+npm i react-hot-toast

@@ -67,3 +67,7 @@ npx shadcn-ui@latest add popover
 npx shadcn-ui@latest add command
 node scripts/seed.ts
 npm install cmdk (to solve a bug)
+(Update the DB)
+npx prisma generate
+npx prisma db push
+npx prisma studio

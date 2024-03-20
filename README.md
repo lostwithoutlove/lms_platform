@@ -74,4 +74,9 @@ npx prisma studio
 npm i @hello-pangea/dnd
 npx shadcn-ui@latest add bagde
 npm i react-quill
+
 npx shadcn-ui@latest add alert-dialog
+
+npx shadcn-ui@latest add table
+npm install @tanstack/react-table
+npx shadcn-ui@latest add dropdown-menu

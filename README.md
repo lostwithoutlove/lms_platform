@@ -47,3 +47,10 @@ npx shadcn-ui@latest add form
 npx shadcn-ui@latest add input
 npm i axios
 npm i react-hot-toast
+npm i -D prisma
+npx prisma init
+npm i @prisma/client
+npx prisma generate
+npx prisma db push
+npx prisma studio
+npx shadcn-ui@latest add textarea

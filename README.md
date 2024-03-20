@@ -33,7 +33,15 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-Terminal Commands
+## Different Tools User
+
+Next.js
+Clerk for Auth
+Prisma, Prisma Studio
+PlanetScale for DB
+Uploadthing for files
+
+## Terminal Commands
 
 npx create-next-app@13.4.12 lms-tutorial --typescript --tailwind --eslint
 npx shadcn-ui@latest init

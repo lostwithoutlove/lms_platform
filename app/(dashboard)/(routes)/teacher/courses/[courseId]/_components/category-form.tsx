@@ -5,9 +5,10 @@ import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Pencil } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { Course } from "@prisma/client";
 
 import {
   Form,
@@ -16,35 +17,40 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
+import { Combobox } from "@/components/ui/combobox";
 
-interface DescriptionFormProps {
-  initialData: {
-    description: string;
-  };
+interface CategoryFormProps {
+  initialData: Course;
   courseId: string;
+  options: { label: string; value: string }[];
 }
 
 const formSchema = z.object({
-  description: z.string().min(1, {
-    message: "Description is required",
-  }),
+  categoryId: z.string().min(1),
 });
 
-export const DescriptionForm = ({
+export const CategoryForm = ({
   initialData,
   courseId,
-}: DescriptionFormProps) => {
+  options,
+}: CategoryFormProps) => {
+  if (!initialData) {
+    return null; // Render nothing if initialData is undefined
+  }
   const [isEditing, setIsEditing] = useState(false);
+
   const toggleEdit = () => setIsEditing((current) => !current);
+
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData,
+    defaultValues: {
+      categoryId: initialData?.categoryId || "",
+    },
   });
 
   const { isSubmitting, isValid } = form.formState;
@@ -55,22 +61,34 @@ export const DescriptionForm = ({
       toast.success("Course updated");
       toggleEdit();
       router.refresh();
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong");
     }
   };
 
+  const selectedOption = options.find(
+    (option) => option.value === initialData.categoryId
+  );
+
+  const validOptions = Array.isArray(options) ? options : [];
+
+  useEffect(() => {
+    console.log("Options:", options);
+    console.log("Initial Data:", initialData);
+    console.log("Valid Options:", validOptions);
+  }, [options, initialData]);
+
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course Description
+        Course category
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit Description
+              Edit category
             </>
           )}
         </Button>
@@ -79,10 +97,10 @@ export const DescriptionForm = ({
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.description && "text-slate-500 italic"
+            !initialData.categoryId && "text-slate-500 italic"
           )}
         >
-          {initialData.description || "No description"}
+          {selectedOption?.label || "No category"}
         </p>
       )}
       {isEditing && (
@@ -93,15 +111,11 @@ export const DescriptionForm = ({
           >
             <FormField
               control={form.control}
-              name="description"
+              name="categoryId"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea
-                      disabled={isSubmitting}
-                      placeholder="e.g. 'This course is about...'"
-                      {...field}
-                    />
+                    <Combobox options={validOptions} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

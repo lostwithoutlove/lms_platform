@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+
 import { db } from "@/lib/db";
 
 export async function POST(
@@ -25,8 +26,6 @@ export async function POST(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    let newPosition = 1;
-
     const lastChapter = await db.chapter.findFirst({
       where: {
         courseId: params.courseId,
@@ -36,9 +35,7 @@ export async function POST(
       },
     });
 
-    if (lastChapter) {
-      newPosition = lastChapter.position + 1;
-    }
+    const newPosition = lastChapter ? lastChapter.position + 1 : 1;
 
     const chapter = await db.chapter.create({
       data: {

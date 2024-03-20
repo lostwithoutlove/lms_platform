@@ -71,3 +71,5 @@ npm install cmdk (to solve a bug)
 npx prisma generate
 npx prisma db push
 npx prisma studio
+npm i @hello-pangea/dnd
+npx shadcn-ui@latest add bagde

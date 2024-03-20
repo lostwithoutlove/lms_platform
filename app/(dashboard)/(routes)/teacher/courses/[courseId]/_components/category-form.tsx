@@ -73,9 +73,7 @@ export const CategoryForm = ({
   const validOptions = Array.isArray(options) ? options : [];
 
   useEffect(() => {
-    console.log("Options:", options);
     console.log("Initial Data:", initialData);
-    console.log("Valid Options:", validOptions);
   }, [options, initialData]);
 
   return (

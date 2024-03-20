@@ -20,9 +20,9 @@ model Course {
   categoryId String?
   category   Category? @relation(fields: [categoryId], references: [id])
 
+  chapters    Chapter[]
   attachments Attachment[]
-  Chapter     Chapter[]
-  Purchase    Purchase[]
+  purchases   Purchase[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -37,10 +37,9 @@ model Category {
 }
 
 model Attachment {
-  id   String @id @default(uuid())
-  name String
-  url  String @db.Text
-
+  id       String @id @default(uuid())
+  name     String
+  url      String @db.Text
   courseId String
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 

@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/format";
+import { Ghost } from "lucide-react";
 
 interface CourseEnrollButtonProps {
   price: number;
@@ -37,7 +38,7 @@ export const CourseEnrollButton = ({
       onClick={onClick}
       disabled={isLoading}
       size="sm"
-      className="w-full md:w-auto"
+      className="w-full md:w-auto bg-black text-white"
     >
       Enroll for {formatPrice(price)}
     </Button>

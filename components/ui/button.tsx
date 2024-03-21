@@ -20,6 +20,8 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         sky: "bg-sky-700",
         purple: "bg-purple-600 text-white",
+        black: "bg-black text-white",
+        success: "bg-purple-600 text-white",
       },
       size: {
         default: "h-10 px-4 py-2",

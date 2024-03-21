@@ -83,3 +83,5 @@ npx shadcn-ui@latest add card
 npm install recharts
 npm install react-icons --save
 npm install query-string
+npm i zustand
+npm i react-confetti

@@ -3,11 +3,13 @@
 import * as z from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { Pencil } from "lucide-react";
+
 import { useState, useEffect } from "react";
-import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+
+import toast from "react-hot-toast";
 import { Course } from "@prisma/client";
 
 import {
@@ -37,24 +39,22 @@ export const CategoryForm = ({
   courseId,
   options,
 }: CategoryFormProps) => {
-  if (!initialData) {
-    return null; // Render nothing if initialData is undefined
-  }
   const [isEditing, setIsEditing] = useState(false);
-
   const toggleEdit = () => setIsEditing((current) => !current);
-
   const router = useRouter();
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       categoryId: initialData?.categoryId || "",
     },
   });
-
+  useEffect(() => {
+    console.log("Initial Data:", initialData);
+  }, [options, initialData]);
   const { isSubmitting, isValid } = form.formState;
-
+  if (!initialData) {
+    return null; // Render nothing if initialData is undefined
+  }
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
@@ -71,10 +71,6 @@ export const CategoryForm = ({
   );
 
   const validOptions = Array.isArray(options) ? options : [];
-
-  useEffect(() => {
-    console.log("Initial Data:", initialData);
-  }, [options, initialData]);
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">

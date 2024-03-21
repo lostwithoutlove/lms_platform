@@ -79,4 +79,7 @@ npx shadcn-ui@latest add alert-dialog
 
 npx shadcn-ui@latest add table
 npm install @tanstack/react-table
-npx shadcn-ui@latest add dropdown-menu
+npx shadcn-ui@latest add card
+npm install recharts
+npm install react-icons --save
+npm install query-string
